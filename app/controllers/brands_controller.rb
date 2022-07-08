@@ -25,6 +25,8 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
+        SendEmailToUserJob.perform_async(@brand.id)
+
         format.html { redirect_to brand_url(@brand), notice: "Brand was successfully created." }
         format.json { render :show, status: :created, location: @brand }
       else

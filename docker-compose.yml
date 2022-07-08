@@ -11,6 +11,11 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis
+    volumes:
+      - ./tmp/db:/var/lib/redis/data
+
   # localstack:
   #   image: localstack/localstack:0.12.18
   #   container_name: localstack
@@ -44,6 +49,7 @@ services:
       RAILS_ENV: "development"
       BUNDLE_PATH: "/bundle/vendor/ruby-3-1-0"
       DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+      REDIS_URL: "redis://redis:6379/12"
       AWS_REGION: "us-east-1"
       AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
       AWS_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
